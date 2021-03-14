@@ -92,6 +92,14 @@ RUN apt-get update \
         pm-utils \
         xscreensaver* \
     && rm -rf /var/lib/apt/lists/*
+### install wine actiona
+RUN dpkg --add-architecture i386
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    wine64 wine32 actiona htop\
+    && rm -rf /var/lib/apt/lists/*
+
+RUN WINEPRFIX=/home/headless/.wine wineboot
 
 FROM stage-xfce as stage-vnc
 
